@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>唐代三省六部结构图</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+    html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
+        background: #f5f7fa;
+    }
+    .header {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%;
+        height: 80px;
+        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .header h1 { font-size: 1.5rem; display:flex; align-items:center; gap:10px; margin:0; }
+    .header h1 i { color: #3498db; }
+    .subtitle { font-size: 0.9rem; color: #bdc3c7; margin:0; }
+    .controls {
+        position: fixed; top: 90px; left: 30px;
+        display: flex; gap:10px; z-index:1000;
+    }
+    .control-btn {
+        padding: 8px 16px;
+        background: linear-gradient(135deg,#3498db 0%,#2980b9 100%);
+        color:white; border:none; border-radius:6px;
+        cursor:pointer; display:flex; align-items:center; gap:8px;
+        font-size:0.9rem; font-weight:500; box-shadow:0 2px 8px rgba(52,152,219,0.3);
+        transition: all 0.3s ease;
+    }
+    .control-btn:hover {
+        background: linear-gradient(135deg,#2980b9 0%,#1f639b 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(52,152,219,0.4);
+    }
+    /* 图表容器外层可滚动 */
+    .chart-wrapper {
+        position: absolute;
+        top: 80px; bottom:0; left:0; right:320px; /* 留右侧信息面板空间 */
+        overflow: auto; background:white;
+    }
+    #org-chart {
+        width: 2000px; /* 初始宽高可根据内容调整 */
+        height: 1800px;
+    }
+    .info-panel {
+        position: fixed; top:80px; right:0; width:320px;
+        height: calc(100vh - 80px);
+        background:white; box-shadow:-4px 0 20px rgba(0,0,0,0.1);
+        z-index:1000; display:flex; flex-direction:column;
+    }
+    .panel-header { padding:15px 20px; background:linear-gradient(135deg,#34495e 0%,#2c3e50 100%); color:white; flex-shrink:0; }
+    .panel-header h2 { font-size:1.2rem; margin:0 0 8px 0; display:flex; align-items:center; gap:8px; }
+    .panel-header h2 i { color:#3498db; }
+    .panel-content { padding:20px; flex:1; overflow-y:auto; display:flex; flex-direction:column; }
+    .main-content-area { flex:1; display:flex; flex-direction:column; }
+    .historical-context { background:#f8f9fa; padding:15px; border-radius:8px; margin-top:20px; border:1px solid #e9ecef; flex-shrink:0; }
+    .historical-context h3 { color:#2c3e50; margin-bottom:10px; font-size:1rem; display:flex; align-items:center; gap:8px; }
+    .historical-context h3 i { color:#3498db; }
+    .historical-context p { color:#555; margin-bottom:8px; line-height:1.5; font-size:0.9rem; }
+    .selected-info h3 { color:#2c3e50; margin-bottom:15px; font-size:1.2rem; border-bottom:2px solid #3498db; padding-bottom:8px; }
+    .footer { position: fixed; bottom:0; left:0; width:100%; background: rgba(44,62,80,0.95); color:white; padding:10px 20px; font-size:0.8rem; z-index:1000; display:flex; justify-content:space-between; align-items:center; }
+</style>
+</head>
+<body>
+<header class="header">
+    <div>
+        <h1><i class="fas fa-landmark"></i> 唐代三省六部职官体系</h1>
+        <p class="subtitle">开元时期中央官制结构可视化</p>
+    </div>
+</header>
+
+<div class="controls">
+    <button class="control-btn" id="expand-all"><i class="fas fa-expand"></i><span>展开所有节点</span></button>
+    <button class="control-btn" id="collapse-all"><i class="fas fa-compress"></i><span>折叠所有节点</span></button>
+</div>
+
+<div class="chart-wrapper">
+    <div id="org-chart"></div>
+</div>
+
+<div class="info-panel">
+    <div class="panel-header">
+        <h2><i class="fas fa-info-circle"></i> 职官信息</h2>
+        <div class="time-period">
+            <span class="period-tag">开元年间 (713-741)</span>
+        </div>
+    </div>
+    <div class="panel-content">
+        <div class="main-content-area">
+            <div class="selected-info">
+                <div class="loading"><i class="fas fa-spinner"></i> 正在加载数据...</div>
+            </div>
+        </div>
+        <div class="historical-context">
+            <h3><i class="fas fa-book"></i> 历史背景</h3>
+            <p>唐代中央官制沿袭隋朝，确立三省六部制。三省指中书省、门下省、尚书省，六部指尚书省下属的吏、户、礼、兵、刑、工六部，是唐代中央政府的主要行政机构。</p>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>© 2026 唐代职官可视化项目 | 使用 ECharts 5.4.3 构建</p>
+    <p class="tech-note">数据源: data.json | 最后更新: <span id="current-date"></span></p>
+</footer>
+
+<script src="main.js"></script>
+<script>
+document.getElementById('current-date').textContent = new Date().toLocaleDateString('zh-CN');
+</script>
+</body>
+</html>

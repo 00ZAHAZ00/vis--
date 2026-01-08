@@ -1,0 +1,220 @@
+/* ========== 全局重置 ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Microsoft YaHei', 'Segoe UI', 'SimHei', sans-serif;
+}
+
+body {
+    position: relative;
+    background: #f5f7fa;
+}
+
+/* ========== 头部 ========== */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: white;
+    padding: 15px 30px;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header h1 {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header h1 i {
+    color: #3498db;
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    color: #bdc3c7;
+}
+
+/* ========== 控制按钮 ========== */
+.controls {
+    position: fixed;
+    top: 90px;
+    left: 30px;
+    z-index: 1000;
+    display: flex;
+    gap: 10px;
+}
+
+.control-btn {
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+}
+
+.control-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+}
+
+/* ========== 图表区域 ========== */
+.chart-container {
+    position: fixed;
+    inset: 0;
+    background: white;
+    z-index: 1;
+}
+
+#org-chart {
+    width: 100%;
+    height: 100%;
+}
+
+/* ========== 信息面板 ========== */
+.info-panel {
+    position: fixed;
+    top: 80px;
+    right: 0;
+    width: 320px;
+    height: calc(100vh - 80px);
+    background: white;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-header {
+    padding: 15px 20px;
+    background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+    color: white;
+}
+
+.panel-header h2 {
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.period-tag {
+    background: rgba(52, 152, 219, 0.2);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    border: 1px solid rgba(52, 152, 219, 0.3);
+}
+
+/* ========== 面板内容 ========== */
+.panel-content {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content-area {
+    flex: 1;
+}
+
+.historical-context {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.historical-context h3 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ========== 详情样式 ========== */
+.detail-item {
+    background: #f8f9fa;
+    border-left: 3px solid #3498db;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+}
+
+.detail-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.detail-value {
+    color: #e74c3c;
+    font-weight: 500;
+}
+
+/* ========== 历史人物卡片 ========== */
+.figure-card {
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 8px;
+    transition: all 0.3s ease;
+}
+
+.figure-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ========== 页脚 ========== */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: rgba(44, 62, 80, 0.95);
+    color: white;
+    padding: 10px 20px;
+    font-size: 0.8rem;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* ========== 全屏按钮 ========== */
+.fullscreen-toggle {
+    position: fixed;
+    bottom: 60px;
+    right: 340px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(52, 152, 219, 0.9);
+    color: white;
+    cursor: pointer;
+    z-index: 1001;
+}
