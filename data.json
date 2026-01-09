@@ -1,602 +1,1292 @@
 {
-  "name": "唐代中央官制",
-  "value": "三省六部制",
-  "staffEstimate": "约150–200人（含六部，制度口径近似）",
-  "description": "唐代中央官制沿袭隋朝，确立三省六部制。三省指中书省、门下省、尚书省，六部指尚书省下属的吏、户、礼、兵、刑、工六部，每部下设四司。此系统在唐代不断演变，开元年间达到完善。",
-  "symbolSize": 70,
-  "itemStyle": { "color": "#2c3e50" },
-  "children": [
-    {
-      "name": "中书省",
-      "value": "决策机构",
-      "staffEstimate": "约20–30人（制度口径近似）",
-      "description": "负责草拟诏令，决策国家大政。长官为中书令（正三品）。",
-      "symbolSize": 55,
-      "itemStyle": { "color": "#3498db" },
-      "historicalFigures": [
-        {
-          "name": "房玄龄",
-          "positions": ["中书令（宰相）"],
-          "era": "贞观",
-          "note": "贞观时期核心宰相，参与大政决策与制度运行。"
-        },
-        {
-          "name": "张九龄",
-          "positions": ["中书侍郎（宰相）", "礼部尚书（曾任）"],
-          "era": "开元",
-          "note": "以清直著称，体现文官在中枢与部务间的流动。"
-        }
-      ],
-      "children": [
-        {
-          "name": "中书令",
-          "value": "正三品",
-          "quota": "常置1人",
-          "description": "中书省最高长官，掌佐天子执大政，总判省事。",
-          "itemStyle": { "color": "#2980b9" }
-        },
-        {
-          "name": "中书侍郎",
-          "value": "正四品上",
-          "quota": "常置2人左右",
-          "description": "中书令的副手，协助处理省务。",
-          "itemStyle": { "color": "#3498db" }
-        },
-        {
-          "name": "中书舍人",
-          "value": "正五品上",
-          "quota": "数人（随时势增减）",
-          "description": "负责起草诏令，参与机密。",
-          "itemStyle": { "color": "#5dade2" }
-        },
-        {
-          "name": "右散骑常侍",
-          "value": "从三品",
-          "quota": "数人（侍从官序列）",
-          "description": "侍从规谏，备顾问应对。",
-          "itemStyle": { "color": "#85c1e9" }
-        }
-      ]
+    "name": "唐代中央官制",
+    "value": "三省六部制",
+    "staffEstimate": "约150–300人（不含宫廷内侍与禁军；口径因时期/记载差异而浮动）",
+    "description": "唐代中央官制沿袭隋朝，确立三省六部制。三省指中书省、门下省、尚书省，六部指尚书省下属的吏、户、礼、兵、刑、工六部，每部下设四司。此系统在唐代不断演变，开元年间达到完善。",
+    "symbolSize": 70,
+    "itemStyle": {
+      "color": "#2c3e50"
     },
-    {
-      "name": "门下省",
-      "value": "审议机构",
-      "staffEstimate": "约20人左右（制度口径近似）",
-      "description": "负责审核诏令，封驳奏章。长官为侍中（正三品）。",
-      "symbolSize": 55,
-      "itemStyle": { "color": "#2ecc71" },
-      "historicalFigures": [
-        {
-          "name": "魏征",
-          "positions": ["侍中（宰相）"],
-          "era": "贞观",
-          "note": "以谏议著称，体现门下省审议/封驳的制度功能。"
-        }
-      ],
-      "children": [
-        {
-          "name": "侍中",
-          "value": "正三品",
-          "quota": "常置1人",
-          "description": "门下省最高长官，掌出纳帝命，总典吏职。",
-          "itemStyle": { "color": "#27ae60" }
+    "period": "唐（618–907）",
+    "coreLogic": "三省分权运作：中书省“出令”（起草制敕），门下省“审议封驳”（复核与驳正），尚书省“奉行付外”（下达执行体系）。",
+    "decisionFlow": [
+      {
+        "step": 1,
+        "from": "中书省",
+        "action": "草拟制敕/诏令（出令）",
+        "output": "制敕草案"
+      },
+      {
+        "step": 2,
+        "from": "门下省",
+        "action": "审议、封驳、署奏（审议封驳）",
+        "output": "可颁行的制敕"
+      },
+      {
+        "step": 3,
+        "from": "尚书省",
+        "action": "付外施行并转发（奉行付外）",
+        "output": "尚书省符/牒"
+      },
+      {
+        "step": 4,
+        "from": "六部/寺监/地方州县",
+        "action": "据符奉行并形成执行档案",
+        "output": "执行文书与回报"
+      }
+    ],
+    "evolutionTimeline": [
+      {
+        "date": "隋—初唐",
+        "event": "在隋制基础上确立并整齐化三省六部框架。"
+      },
+      {
+        "date": "开元年间",
+        "event": "典章制度与官署分工趋于成熟；《唐六典》对制度面貌作了系统汇编。"
+      },
+      {
+        "date": "中晚唐",
+        "event": "使职（如度支使等）与财政、军事结构变化，改变部分部司的实际权力重心。"
+      }
+    ],
+    "references": [
+      {
+        "type": "primary",
+        "title": "《唐六典》",
+        "era": "开元年间修撰",
+        "note": "系统记载三省六部、九寺五监、十二卫等职官与职掌。"
+      },
+      {
+        "type": "primary",
+        "title": "《通典》卷二十一等（杜佑）",
+        "era": "唐末五代之际成书",
+        "note": "对门下省、中书省等官属及沿革有系统叙述。"
+      },
+      {
+        "type": "secondary",
+        "title": "关于唐代政令运行与文书流程的研究性文章",
+        "note": "用于理解“中书起草—门下封驳—尚书付外”的流程与行文用语。"
+      },
+      {
+        "type": "secondary",
+        "title": "关于唐代御史台（台院/殿院/察院）职掌的研究/通论文章",
+        "note": "用于补充监察体系结构。"
+      }
+    ],
+    "children": [
+      {
+        "name": "中书省",
+        "value": "决策机构",
+        "staffEstimate": "约20–30人（制度口径近似）",
+        "description": "负责草拟诏令，决策国家大政。长官为中书令（正三品）。",
+        "symbolSize": 55,
+        "itemStyle": {
+          "color": "#3498db"
         },
-        {
-          "name": "门下侍郎",
-          "value": "正四品上",
-          "quota": "常置2人左右",
-          "description": "侍中的副手，协助审议诏令。",
-          "itemStyle": { "color": "#2ecc71" }
-        },
-        {
-          "name": "给事中",
-          "value": "正五品上",
-          "quota": "数人（随时势增减）",
-          "description": "负责审议封驳诏令奏章。",
-          "itemStyle": { "color": "#58d68d" }
-        },
-        {
-          "name": "左散骑常侍",
-          "value": "从三品",
-          "quota": "数人（侍从官序列）",
-          "description": "侍从规谏，备顾问应对。",
-          "itemStyle": { "color": "#82e5aa" }
-        }
-      ]
-    },
-    {
-      "name": "尚书省",
-      "value": "执行机构",
-      "staffEstimate": "约100–150人（含六部，制度口径近似）",
-      "description": "负责执行政令，总领六部。长官为尚书令（正二品，后常空缺）。",
-      "symbolSize": 65,
-      "itemStyle": { "color": "#e74c3c" },
-      "historicalFigures": [
-        {
-          "name": "杜如晦",
-          "positions": ["尚书右仆射（宰相）"],
-          "era": "贞观",
-          "note": "与房玄龄并称房杜，体现尚书省的行政中枢地位。"
-        },
-        {
-          "name": "姚崇",
-          "positions": ["兵部尚书（曾任）", "尚书左仆射（宰相）"],
-          "era": "开元",
-          "note": "行政型宰相代表，体现从部务到中枢的升迁路径。"
-        }
-      ],
-      "children": [
-        {
-          "name": "尚书令",
-          "value": "正二品",
-          "quota": "名义1人（多空缺）",
-          "description": "尚书省名义最高长官，因李世民曾任此职，后常空缺。",
-          "itemStyle": { "color": "#c0392b" }
-        },
-        {
-          "name": "左/右仆射",
-          "value": "从二品",
-          "quota": "左右各1（合计2人左右）",
-          "description": "尚书省实际最高长官，掌统理六官。",
-          "itemStyle": { "color": "#e74c3c" }
-        },
-        {
-          "name": "左/右丞",
-          "value": "正四品",
-          "quota": "左右各1（合计2人左右）",
-          "description": "协助仆射处理省务。",
-          "itemStyle": { "color": "#ec7063" }
-        },
-        {
-          "name": "吏部",
-          "value": "六部之首",
-          "staffEstimate": "约15–25人（制度口径近似）",
-          "description": "掌文选、勋封、考课之政。下设吏部、司封、司勋、考功四司。",
-          "symbolSize": 50,
-          "itemStyle": { "color": "#9b59b6" },
-          "historicalFigures": [
-            {
-              "name": "韩愈",
-              "positions": ["吏部侍郎（晚年）"],
-              "era": "元和",
-              "note": "文学家兼官员，常被称为韩吏部。"
+        "historicalFigures": [
+          {
+            "name": "房玄龄",
+            "positions": [
+              "中书令（宰相）"
+            ],
+            "era": "贞观",
+            "note": "贞观时期核心宰相，参与大政决策与制度运行。"
+          },
+          {
+            "name": "张九龄",
+            "positions": [
+              "中书侍郎（宰相）",
+              "礼部尚书（曾任）"
+            ],
+            "era": "开元",
+            "note": "以清直著称，体现文官在中枢与部务间的流动。"
+          }
+        ],
+        "children": [
+          {
+            "name": "中书令",
+            "value": "正三品",
+            "quota": "常置1人",
+            "description": "中书省最高长官，掌佐天子执大政，总判省事。",
+            "itemStyle": {
+              "color": "#2980b9"
             }
-          ],
-          "children": [
-            {
-              "name": "吏部尚书",
-              "value": "正三品",
-              "quota": 1,
-              "description": "吏部最高长官，掌官吏选拔与四司总务。",
-              "symbolSize": 25,
-              "children": [
-                {
-                  "name": "吏部侍郎",
-                  "value": "正四品上",
-                  "quota": 2,
-                  "description": "尚书副手，协助管理部务及各司。",
-                  "symbolSize": 22,
-                  "children": [
-                    {
-                      "name": "吏部司",
-                      "value": "本司",
-                      "description": "掌文官阶品、朝集、禄赐等事务，为吏部首司。",
-                      "symbolSize": 20,
-                      "children": [
-                        { "name": "吏部郎中", "value": "从五品上", "quota": 2, "description": "吏部司长官，掌文官阶品、选补等。" },
-                        { "name": "吏部员外郎", "value": "从六品上", "quota": 2, "description": "协助郎中处理司务。" }
-                      ]
-                    },
-                    {
-                      "name": "司封司",
-                      "value": "封爵之司",
-                      "description": "掌封爵、袭荫、褒赠等事务。",
-                      "symbolSize": 20,
-                      "children": [
-                        { "name": "司封郎中", "value": "从五品上", "quota": 1, "description": "司封司长官。" },
-                        { "name": "司封员外郎", "value": "从六品上", "quota": 1, "description": "协助郎中处理司务。" }
-                      ]
-                    },
-                    {
-                      "name": "司勋司",
-                      "value": "勋赏之司",
-                      "description": "掌官吏勋级、功赏等事务。",
-                      "symbolSize": 20,
-                      "children": [
-                        { "name": "司勋郎中", "value": "从五品上", "quota": 1, "description": "司勋司长官。" },
-                        { "name": "司勋员外郎", "value": "从六品上", "quota": 2, "description": "协助郎中处理司务。" }
-                      ]
-                    },
-                    {
-                      "name": "考功司",
-                      "value": "考课之司",
-                      "description": "掌文武百官考课、黜陟等事务。",
-                      "symbolSize": 20,
-                      "children": [
-                        { "name": "考功郎中", "value": "从五品上", "quota": 1, "description": "考功司长官。" },
-                        { "name": "考功员外郎", "value": "从六品上", "quota": 1, "description": "协助郎中处理司务。" }
-                      ]
-                    }
-                  ]
-                }
-              ]
+          },
+          {
+            "name": "中书侍郎",
+            "value": "正四品上",
+            "quota": "常置2人左右",
+            "description": "中书令的副手，协助处理省务。",
+            "itemStyle": {
+              "color": "#3498db"
             }
-          ]
+          },
+          {
+            "name": "中书舍人",
+            "value": "正五品上",
+            "quota": "数人（随时势增减）",
+            "description": "负责起草诏令，参与机密。",
+            "itemStyle": {
+              "color": "#5dade2"
+            }
+          },
+          {
+            "name": "右散骑常侍",
+            "value": "从三品",
+            "quota": "数人（侍从官序列）",
+            "description": "侍从规谏，备顾问应对。",
+            "itemStyle": {
+              "color": "#85c1e9"
+            }
+          },
+          {
+            "name": "右补阙",
+            "value": "从七品上（常见品秩）",
+            "quota": "数人（随时势增减）",
+            "description": "供奉讽谏、补阙时政；与左补阙相对，右属中书系统（制度表述随时期略有差异）。",
+            "itemStyle": {
+              "color": "#85c1e9"
+            }
+          },
+          {
+            "name": "右拾遗",
+            "value": "从八品上（常见品秩）",
+            "quota": "数人（随时势增减）",
+            "description": "供奉讽谏、拾遗补过；与左拾遗相对，右属中书系统（制度表述随时期略有差异）。",
+            "itemStyle": {
+              "color": "#aed6f1"
+            }
+          },
+          {
+            "name": "起居舍人",
+            "value": "从六品上（常见品秩）",
+            "quota": "数人",
+            "description": "记录起居言动、参掌起居注（与起居郎合称起居官；分隶关系与时期相关）。",
+            "itemStyle": {
+              "color": "#d6eaf8"
+            }
+          }
+        ]
+      },
+      {
+        "name": "门下省",
+        "value": "审议机构",
+        "staffEstimate": "约20人左右（制度口径近似）",
+        "description": "负责审核诏令，封驳奏章。长官为侍中（正三品）。",
+        "symbolSize": 55,
+        "itemStyle": {
+          "color": "#2ecc71"
         },
-        {
-          "name": "户部",
-          "value": "财政机构",
-          "staffEstimate": "约15–25人（制度口径近似）",
-          "description": "掌天下土地、户籍、赋税、财政收支。下设户部、度支、金部、仓部四司。",
-          "symbolSize": 50,
-          "itemStyle": { "color": "#1abc9c" },
-          "historicalFigures": [
-            {
-              "name": "刘晏",
-              "positions": ["户部侍郎（曾任）", "度支使（理财）"],
-              "era": "天宝—大历",
-              "note": "以理财著称，体现户部与财政运作的关键位置。"
+        "historicalFigures": [
+          {
+            "name": "魏征",
+            "positions": [
+              "侍中（宰相）"
+            ],
+            "era": "贞观",
+            "note": "以谏议著称，体现门下省审议/封驳的制度功能。"
+          }
+        ],
+        "children": [
+          {
+            "name": "侍中",
+            "value": "正三品",
+            "quota": "常置1人",
+            "description": "门下省最高长官，掌出纳帝命，总典吏职。",
+            "itemStyle": {
+              "color": "#27ae60"
             }
-          ],
-          "children": [
-            {
-              "name": "户部尚书",
-              "value": "正三品",
-              "quota": 1,
-              "description": "户部最高长官，掌财政户籍与四司总务。",
-              "symbolSize": 25,
-              "children": [
-                {
-                  "name": "户部侍郎",
-                  "value": "正四品下",
-                  "quota": 2,
-                  "description": "尚书副手，协助管理财政及各司。",
-                  "symbolSize": 22,
-                  "children": [
-                    {
-                      "name": "户部司",
-                      "value": "本司",
-                      "description": "掌户口、土田、赋役、贡献等事务。",
-                      "symbolSize": 20,
-                      "children": [
-                        { "name": "户部郎中", "value": "从五品上", "quota": 2, "description": "户部司长官。" },
-                        { "name": "户部员外郎", "value": "从六品上", "quota": 2, "description": "协助郎中处理司务。" }
-                      ]
-                    },
-                    {
-                      "name": "度支司",
-                      "value": "预算之司",
-                      "description": "掌天下租赋、物产丰约之宜，水陆道途之利，岁计所出而支调之。",
-                      "symbolSize": 20,
-                      "children": [
-                        { "name": "度支郎中", "value": "从五品上", "quota": 1, "description": "度支司长官。" },
-                        { "name": "度支员外郎", "value": "从六品上", "quota": 1, "description": "协助郎中处理司务。" }
-                      ]
-                    },
-                    {
-                      "name": "金部司",
-                      "value": "钱帛之司",
-                      "description": "掌天下库藏钱帛出纳之事，度量衡的政令。",
-                      "symbolSize": 20,
-                      "children": [
-                        { "name": "金部郎中", "value": "从五品上", "quota": 1, "description": "金部司长官。" },
-                        { "name": "金部员外郎", "value": "从六品上", "quota": 1, "description": "协助郎中处理司务。" }
-                      ]
-                    },
-                    {
-                      "name": "仓部司",
-                      "value": "仓储之司",
-                      "description": "掌天下库储，出纳租税、禄粮、仓廪之事。",
-                      "symbolSize": 20,
-                      "children": [
-                        { "name": "仓部郎中", "value": "从五品上", "quota": 1, "description": "仓部司长官。" },
-                        { "name": "仓部员外郎", "value": "从六品上", "quota": 1, "description": "协助郎中处理司务。" }
-                      ]
-                    }
-                  ]
-                }
-              ]
+          },
+          {
+            "name": "门下侍郎",
+            "value": "正四品上",
+            "quota": "常置2人左右",
+            "description": "侍中的副手，协助审议诏令。",
+            "itemStyle": {
+              "color": "#2ecc71"
             }
-          ]
+          },
+          {
+            "name": "给事中",
+            "value": "正五品上",
+            "quota": "数人（随时势增减）",
+            "description": "负责审议封驳诏令奏章。",
+            "itemStyle": {
+              "color": "#58d68d"
+            }
+          },
+          {
+            "name": "左散骑常侍",
+            "value": "从三品",
+            "quota": "数人（侍从官序列）",
+            "description": "侍从规谏，备顾问应对。",
+            "itemStyle": {
+              "color": "#82e5aa"
+            }
+          },
+          {
+            "name": "谏议大夫",
+            "value": "从四品下（常见品秩）",
+            "quota": "数人",
+            "description": "掌谏谕得失，参与廷议与规谏传统，构成台谏体系的重要一环。",
+            "itemStyle": {
+              "color": "#82e5aa"
+            }
+          },
+          {
+            "name": "左补阙",
+            "value": "从七品上（常见品秩）",
+            "quota": "数人（随时势增减）",
+            "description": "供奉讽谏、补阙时政；与右补阙相对，左属门下系统（制度表述随时期略有差异）。",
+            "itemStyle": {
+              "color": "#abebc6"
+            }
+          },
+          {
+            "name": "左拾遗",
+            "value": "从八品上（常见品秩）",
+            "quota": "数人（随时势增减）",
+            "description": "供奉讽谏、拾遗补过；与右拾遗相对，左属门下系统（制度表述随时期略有差异）。",
+            "itemStyle": {
+              "color": "#d5f5e3"
+            }
+          },
+          {
+            "name": "起居郎",
+            "value": "从六品上（常见品秩）",
+            "quota": "数人",
+            "description": "记录起居言动、参掌起居注（与起居舍人合称起居官）。",
+            "itemStyle": {
+              "color": "#e8f8f5"
+            }
+          }
+        ]
+      },
+      {
+        "name": "尚书省",
+        "value": "执行机构",
+        "staffEstimate": "约100–150人（含六部，制度口径近似）",
+        "description": "负责执行政令，总领六部。长官为尚书令（正二品，后常空缺）。",
+        "symbolSize": 65,
+        "itemStyle": {
+          "color": "#e74c3c"
         },
-        {
-          "name": "礼部",
-          "value": "礼仪文教",
-          "staffEstimate": "约15–25人（制度口径近似）",
-          "description": "掌礼仪、祭享、贡举、文教等事务。下设礼部、祠部、膳部、主客四司。",
-          "symbolSize": 50,
-          "itemStyle": { "color": "#f39c12" },
-          "historicalFigures": [
-            {
-              "name": "张九龄",
-              "positions": ["礼部尚书（曾任）", "中书侍郎（宰相）"],
-              "era": "开元",
-              "note": "体现礼部（文教）与中枢（中书省）之间的晋升通道。"
+        "historicalFigures": [
+          {
+            "name": "杜如晦",
+            "positions": [
+              "尚书右仆射（宰相）"
+            ],
+            "era": "贞观",
+            "note": "与房玄龄并称房杜，体现尚书省的行政中枢地位。"
+          },
+          {
+            "name": "姚崇",
+            "positions": [
+              "兵部尚书（曾任）",
+              "尚书左仆射（宰相）"
+            ],
+            "era": "开元",
+            "note": "行政型宰相代表，体现从部务到中枢的升迁路径。"
+          }
+        ],
+        "children": [
+          {
+            "name": "尚书令",
+            "value": "正二品",
+            "quota": "名义1人（多空缺）",
+            "description": "尚书省名义最高长官，因李世民曾任此职，后常空缺。",
+            "itemStyle": {
+              "color": "#c0392b"
             }
-          ],
-          "children": [
-            {
-              "name": "礼部尚书",
-              "value": "正三品",
-              "quota": 1,
-              "description": "礼部最高长官，掌礼仪文教与四司总务。",
-              "symbolSize": 25,
-              "children": [
-                {
-                  "name": "礼部侍郎",
-                  "value": "正四品下",
-                  "quota": 2,
-                  "description": "尚书副手，协助管理部务及各司。",
-                  "symbolSize": 22,
-                  "children": [
-                    {
-                      "name": "礼部司",
-                      "value": "本司",
-                      "description": "掌礼乐、学校、仪式、制度等事务。",
-                      "symbolSize": 20,
-                      "children": [
-                        { "name": "礼部郎中", "value": "从五品上", "quota": 2, "description": "礼部司长官。" },
-                        { "name": "礼部员外郎", "value": "从六品上", "quota": 2, "description": "协助郎中处理司务。" }
-                      ]
-                    },
-                    {
-                      "name": "祠部司",
-                      "value": "祭祀之司",
-                      "description": "掌祠祀、享祭、天文、漏刻、国忌、庙讳、卜祝等事。",
-                      "symbolSize": 20,
-                      "children": [
-                        { "name": "祠部郎中", "value": "从五品上", "quota": 1, "description": "祠部司长官。" },
-                        { "name": "祠部员外郎", "value": "从六品上", "quota": 1, "description": "协助郎中处理司务。" }
-                      ]
-                    },
-                    {
-                      "name": "膳部司",
-                      "value": "膳食之司",
-                      "description": "掌陵庙祭祀、朝会、宾客的膳食供应等事务。",
-                      "symbolSize": 20,
-                      "children": [
-                        { "name": "膳部郎中", "value": "从五品上", "quota": 1, "description": "膳部司长官。" },
-                        { "name": "膳部员外郎", "value": "从六品上", "quota": 1, "description": "协助郎中处理司务。" }
-                      ]
-                    },
-                    {
-                      "name": "主客司",
-                      "value": "宾客之司",
-                      "description": "掌诸蕃朝见、给赐、送迎等事务。",
-                      "symbolSize": 20,
-                      "children": [
-                        { "name": "主客郎中", "value": "从五品上", "quota": 1, "description": "主客司长官。" },
-                        { "name": "主客员外郎", "value": "从六品上", "quota": 1, "description": "协助郎中处理司务。" }
-                      ]
-                    }
-                  ]
-                }
-              ]
+          },
+          {
+            "name": "左/右仆射",
+            "value": "从二品",
+            "quota": "左右各1（合计2人左右）",
+            "description": "尚书省实际最高长官，掌统理六官。",
+            "itemStyle": {
+              "color": "#e74c3c"
             }
-          ]
+          },
+          {
+            "name": "左/右丞",
+            "value": "正四品",
+            "quota": "左右各1（合计2人左右）",
+            "description": "协助仆射处理省务。",
+            "itemStyle": {
+              "color": "#ec7063"
+            }
+          },
+          {
+            "name": "吏部",
+            "value": "六部之首",
+            "staffEstimate": "约15–25人（制度口径近似）",
+            "description": "掌文选、勋封、考课之政。下设吏部、司封、司勋、考功四司。",
+            "symbolSize": 50,
+            "itemStyle": {
+              "color": "#9b59b6"
+            },
+            "historicalFigures": [
+              {
+                "name": "韩愈",
+                "positions": [
+                  "吏部侍郎（晚年）"
+                ],
+                "era": "元和",
+                "note": "文学家兼官员，常被称为韩吏部。"
+              }
+            ],
+            "children": [
+              {
+                "name": "吏部尚书",
+                "value": "正三品",
+                "quota": 1,
+                "description": "吏部最高长官，掌官吏选拔与四司总务。",
+                "symbolSize": 25,
+                "children": [
+                  {
+                    "name": "吏部侍郎",
+                    "value": "正四品上",
+                    "quota": 2,
+                    "description": "尚书副手，协助管理部务及各司。",
+                    "symbolSize": 22,
+                    "children": [
+                      {
+                        "name": "吏部司",
+                        "value": "本司",
+                        "description": "掌文官阶品、朝集、禄赐等事务，为吏部首司。",
+                        "symbolSize": 20,
+                        "children": [
+                          {
+                            "name": "吏部郎中",
+                            "value": "从五品上",
+                            "quota": 2,
+                            "description": "吏部司长官，掌文官阶品、选补等。"
+                          },
+                          {
+                            "name": "吏部员外郎",
+                            "value": "从六品上",
+                            "quota": 2,
+                            "description": "协助郎中处理司务。"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "司封司",
+                        "value": "封爵之司",
+                        "description": "掌封爵、袭荫、褒赠等事务。",
+                        "symbolSize": 20,
+                        "children": [
+                          {
+                            "name": "司封郎中",
+                            "value": "从五品上",
+                            "quota": 1,
+                            "description": "司封司长官。"
+                          },
+                          {
+                            "name": "司封员外郎",
+                            "value": "从六品上",
+                            "quota": 1,
+                            "description": "协助郎中处理司务。"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "司勋司",
+                        "value": "勋赏之司",
+                        "description": "掌官吏勋级、功赏等事务。",
+                        "symbolSize": 20,
+                        "children": [
+                          {
+                            "name": "司勋郎中",
+                            "value": "从五品上",
+                            "quota": 1,
+                            "description": "司勋司长官。"
+                          },
+                          {
+                            "name": "司勋员外郎",
+                            "value": "从六品上",
+                            "quota": 2,
+                            "description": "协助郎中处理司务。"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "考功司",
+                        "value": "考课之司",
+                        "description": "掌文武百官考课、黜陟等事务。",
+                        "symbolSize": 20,
+                        "children": [
+                          {
+                            "name": "考功郎中",
+                            "value": "从五品上",
+                            "quota": 1,
+                            "description": "考功司长官。"
+                          },
+                          {
+                            "name": "考功员外郎",
+                            "value": "从六品上",
+                            "quota": 1,
+                            "description": "协助郎中处理司务。"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "户部",
+            "value": "财政机构",
+            "staffEstimate": "约15–25人（制度口径近似）",
+            "description": "掌天下土地、户籍、赋税、财政收支。下设户部、度支、金部、仓部四司。",
+            "symbolSize": 50,
+            "itemStyle": {
+              "color": "#1abc9c"
+            },
+            "historicalFigures": [
+              {
+                "name": "刘晏",
+                "positions": [
+                  "户部侍郎（曾任）",
+                  "度支使（理财）"
+                ],
+                "era": "天宝—大历",
+                "note": "以理财著称，体现户部与财政运作的关键位置。"
+              }
+            ],
+            "children": [
+              {
+                "name": "户部尚书",
+                "value": "正三品",
+                "quota": 1,
+                "description": "户部最高长官，掌财政户籍与四司总务。",
+                "symbolSize": 25,
+                "children": [
+                  {
+                    "name": "户部侍郎",
+                    "value": "正四品下",
+                    "quota": 2,
+                    "description": "尚书副手，协助管理财政及各司。",
+                    "symbolSize": 22,
+                    "children": [
+                      {
+                        "name": "户部司",
+                        "value": "本司",
+                        "description": "掌户口、土田、赋役、贡献等事务。",
+                        "symbolSize": 20,
+                        "children": [
+                          {
+                            "name": "户部郎中",
+                            "value": "从五品上",
+                            "quota": 2,
+                            "description": "户部司长官。"
+                          },
+                          {
+                            "name": "户部员外郎",
+                            "value": "从六品上",
+                            "quota": 2,
+                            "description": "协助郎中处理司务。"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "度支司",
+                        "value": "预算之司",
+                        "description": "掌天下租赋、物产丰约之宜，水陆道途之利，岁计所出而支调之。",
+                        "symbolSize": 20,
+                        "children": [
+                          {
+                            "name": "度支郎中",
+                            "value": "从五品上",
+                            "quota": 1,
+                            "description": "度支司长官。"
+                          },
+                          {
+                            "name": "度支员外郎",
+                            "value": "从六品上",
+                            "quota": 1,
+                            "description": "协助郎中处理司务。"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "金部司",
+                        "value": "钱帛之司",
+                        "description": "掌天下库藏钱帛出纳之事，度量衡的政令。",
+                        "symbolSize": 20,
+                        "children": [
+                          {
+                            "name": "金部郎中",
+                            "value": "从五品上",
+                            "quota": 1,
+                            "description": "金部司长官。"
+                          },
+                          {
+                            "name": "金部员外郎",
+                            "value": "从六品上",
+                            "quota": 1,
+                            "description": "协助郎中处理司务。"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "仓部司",
+                        "value": "仓储之司",
+                        "description": "掌天下库储，出纳租税、禄粮、仓廪之事。",
+                        "symbolSize": 20,
+                        "children": [
+                          {
+                            "name": "仓部郎中",
+                            "value": "从五品上",
+                            "quota": 1,
+                            "description": "仓部司长官。"
+                          },
+                          {
+                            "name": "仓部员外郎",
+                            "value": "从六品上",
+                            "quota": 1,
+                            "description": "协助郎中处理司务。"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "礼部",
+            "value": "礼仪文教",
+            "staffEstimate": "约15–25人（制度口径近似）",
+            "description": "掌礼仪、祭享、贡举、文教等事务。下设礼部、祠部、膳部、主客四司。",
+            "symbolSize": 50,
+            "itemStyle": {
+              "color": "#f39c12"
+            },
+            "historicalFigures": [
+              {
+                "name": "张九龄",
+                "positions": [
+                  "礼部尚书（曾任）",
+                  "中书侍郎（宰相）"
+                ],
+                "era": "开元",
+                "note": "体现礼部（文教）与中枢（中书省）之间的晋升通道。"
+              }
+            ],
+            "children": [
+              {
+                "name": "礼部尚书",
+                "value": "正三品",
+                "quota": 1,
+                "description": "礼部最高长官，掌礼仪文教与四司总务。",
+                "symbolSize": 25,
+                "children": [
+                  {
+                    "name": "礼部侍郎",
+                    "value": "正四品下",
+                    "quota": 2,
+                    "description": "尚书副手，协助管理部务及各司。",
+                    "symbolSize": 22,
+                    "children": [
+                      {
+                        "name": "礼部司",
+                        "value": "本司",
+                        "description": "掌礼乐、学校、仪式、制度等事务。",
+                        "symbolSize": 20,
+                        "children": [
+                          {
+                            "name": "礼部郎中",
+                            "value": "从五品上",
+                            "quota": 2,
+                            "description": "礼部司长官。"
+                          },
+                          {
+                            "name": "礼部员外郎",
+                            "value": "从六品上",
+                            "quota": 2,
+                            "description": "协助郎中处理司务。"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "祠部司",
+                        "value": "祭祀之司",
+                        "description": "掌祠祀、享祭、天文、漏刻、国忌、庙讳、卜祝等事。",
+                        "symbolSize": 20,
+                        "children": [
+                          {
+                            "name": "祠部郎中",
+                            "value": "从五品上",
+                            "quota": 1,
+                            "description": "祠部司长官。"
+                          },
+                          {
+                            "name": "祠部员外郎",
+                            "value": "从六品上",
+                            "quota": 1,
+                            "description": "协助郎中处理司务。"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "膳部司",
+                        "value": "膳食之司",
+                        "description": "掌陵庙祭祀、朝会、宾客的膳食供应等事务。",
+                        "symbolSize": 20,
+                        "children": [
+                          {
+                            "name": "膳部郎中",
+                            "value": "从五品上",
+                            "quota": 1,
+                            "description": "膳部司长官。"
+                          },
+                          {
+                            "name": "膳部员外郎",
+                            "value": "从六品上",
+                            "quota": 1,
+                            "description": "协助郎中处理司务。"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "主客司",
+                        "value": "宾客之司",
+                        "description": "掌诸蕃朝见、给赐、送迎等事务。",
+                        "symbolSize": 20,
+                        "children": [
+                          {
+                            "name": "主客郎中",
+                            "value": "从五品上",
+                            "quota": 1,
+                            "description": "主客司长官。"
+                          },
+                          {
+                            "name": "主客员外郎",
+                            "value": "从六品上",
+                            "quota": 1,
+                            "description": "协助郎中处理司务。"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "兵部",
+            "value": "军事行政",
+            "staffEstimate": "约15–25人（制度口径近似）",
+            "description": "掌武选、地图、车马、甲械等军事行政。下设兵部、职方、驾部、库部四司。",
+            "symbolSize": 50,
+            "itemStyle": {
+              "color": "#e67e22"
+            },
+            "historicalFigures": [
+              {
+                "name": "李靖",
+                "positions": [
+                  "兵部尚书（曾任）"
+                ],
+                "era": "贞观前后",
+                "note": "名将兼官员，体现兵部在军事行政中的地位。"
+              }
+            ],
+            "children": [
+              {
+                "name": "兵部尚书",
+                "value": "正三品",
+                "quota": 1,
+                "description": "兵部最高长官，掌军事行政与四司总务。",
+                "symbolSize": 25,
+                "children": [
+                  {
+                    "name": "兵部侍郎",
+                    "value": "正四品下",
+                    "quota": 2,
+                    "description": "尚书副手，协助管理军务及各司。",
+                    "symbolSize": 22,
+                    "children": [
+                      {
+                        "name": "兵部司",
+                        "value": "本司",
+                        "description": "掌武官阶品、卫府名额、军戎差遣等事务。",
+                        "symbolSize": 20,
+                        "children": [
+                          {
+                            "name": "兵部郎中",
+                            "value": "从五品上",
+                            "quota": 2,
+                            "description": "兵部司长官。"
+                          },
+                          {
+                            "name": "兵部员外郎",
+                            "value": "从六品上",
+                            "quota": 2,
+                            "description": "协助郎中处理司务。"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "职方司",
+                        "value": "地图之司",
+                        "description": "掌地图、城隍、镇戍、烽候、道路等事务。",
+                        "symbolSize": 20,
+                        "children": [
+                          {
+                            "name": "职方郎中",
+                            "value": "从五品上",
+                            "quota": 1,
+                            "description": "职方司长官。"
+                          },
+                          {
+                            "name": "职方员外郎",
+                            "value": "从六品上",
+                            "quota": 1,
+                            "description": "协助郎中处理司务。"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "驾部司",
+                        "value": "车马之司",
+                        "description": "掌舆辇、车乘、邮驿、厩牧等事务。",
+                        "symbolSize": 20,
+                        "children": [
+                          {
+                            "name": "驾部郎中",
+                            "value": "从五品上",
+                            "quota": 1,
+                            "description": "驾部司长官。"
+                          },
+                          {
+                            "name": "驾部员外郎",
+                            "value": "从六品上",
+                            "quota": 1,
+                            "description": "协助郎中处理司务。"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "库部司",
+                        "value": "甲械之司",
+                        "description": "掌戎器、卤簿、仪仗等事务。",
+                        "symbolSize": 20,
+                        "children": [
+                          {
+                            "name": "库部郎中",
+                            "value": "从五品上",
+                            "quota": 1,
+                            "description": "库部司长官。"
+                          },
+                          {
+                            "name": "库部员外郎",
+                            "value": "从六品上",
+                            "quota": 1,
+                            "description": "协助郎中处理司务。"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "刑部",
+            "value": "司法刑狱",
+            "staffEstimate": "约15–25人（制度口径近似）",
+            "description": "掌律令、刑法、徒隶、按复谳禁之政。下设刑部、都官、比部、司门四司。",
+            "symbolSize": 50,
+            "itemStyle": {
+              "color": "#34495e"
+            },
+            "historicalFigures": [],
+            "children": [
+              {
+                "name": "刑部尚书",
+                "value": "正三品",
+                "quota": 1,
+                "description": "刑部最高长官，掌司法刑狱与四司总务。",
+                "symbolSize": 25,
+                "children": [
+                  {
+                    "name": "刑部侍郎",
+                    "value": "正四品下",
+                    "quota": 2,
+                    "description": "尚书副手，协助管理司法及各司。",
+                    "symbolSize": 22,
+                    "children": [
+                      {
+                        "name": "刑部司",
+                        "value": "本司",
+                        "description": "掌律法、刑法、按复等事务。",
+                        "symbolSize": 20,
+                        "children": [
+                          {
+                            "name": "刑部郎中",
+                            "value": "从五品上",
+                            "quota": 2,
+                            "description": "刑部司长官。"
+                          },
+                          {
+                            "name": "刑部员外郎",
+                            "value": "从六品上",
+                            "quota": 2,
+                            "description": "协助郎中处理司务。"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "都官司",
+                        "value": "徒隶之司",
+                        "description": "掌俘隶簿录，给衣粮医药等事务。",
+                        "symbolSize": 20,
+                        "children": [
+                          {
+                            "name": "都官郎中",
+                            "value": "从五品上",
+                            "quota": 1,
+                            "description": "都官司长官。"
+                          },
+                          {
+                            "name": "都官员外郎",
+                            "value": "从六品上",
+                            "quota": 1,
+                            "description": "协助郎中处理司务。"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "比部司",
+                        "value": "勾检之司",
+                        "description": "掌勾会内外赋敛、经费、俸禄等事务。",
+                        "symbolSize": 20,
+                        "children": [
+                          {
+                            "name": "比部郎中",
+                            "value": "从五品上",
+                            "quota": 1,
+                            "description": "比部司长官。"
+                          },
+                          {
+                            "name": "比部员外郎",
+                            "value": "从六品上",
+                            "quota": 1,
+                            "description": "协助郎中处理司务。"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "司门司",
+                        "value": "门禁之司",
+                        "description": "掌天下诸门及关隘出入往来之籍赋。",
+                        "symbolSize": 20,
+                        "children": [
+                          {
+                            "name": "司门郎中",
+                            "value": "从五品上",
+                            "quota": 1,
+                            "description": "司门司长官。"
+                          },
+                          {
+                            "name": "司门员外郎",
+                            "value": "从六品上",
+                            "quota": 1,
+                            "description": "协助郎中处理司务。"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "工部",
+            "value": "工程营造",
+            "staffEstimate": "约15–25人（制度口径近似）",
+            "description": "掌山泽、屯田、工匠、诸司公廨纸笔墨等。下设工部、屯田、虞部、水部四司。",
+            "symbolSize": 50,
+            "itemStyle": {
+              "color": "#16a085"
+            },
+            "historicalFigures": [
+              {
+                "name": "杜甫",
+                "positions": [
+                  "工部员外郎（曾任）"
+                ],
+                "era": "乾元—上元",
+                "note": "因曾任此职，后世常称杜工部。"
+              }
+            ],
+            "children": [
+              {
+                "name": "工部尚书",
+                "value": "正三品",
+                "quota": 1,
+                "description": "工部最高长官，掌工程营造与四司总务。",
+                "symbolSize": 25,
+                "children": [
+                  {
+                    "name": "工部侍郎",
+                    "value": "正四品下",
+                    "quota": 2,
+                    "description": "尚书副手，协助管理工务及各司。",
+                    "symbolSize": 22,
+                    "children": [
+                      {
+                        "name": "工部司",
+                        "value": "本司",
+                        "description": "掌城池土木之工役程式等事务。",
+                        "symbolSize": 20,
+                        "children": [
+                          {
+                            "name": "工部郎中",
+                            "value": "从五品上",
+                            "quota": 2,
+                            "description": "工部司长官。"
+                          },
+                          {
+                            "name": "工部员外郎",
+                            "value": "从六品上",
+                            "quota": 2,
+                            "description": "协助郎中处理司务。"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "屯田司",
+                        "value": "屯田之司",
+                        "description": "掌天下屯田及文武职田、诸司公廨田等事务。",
+                        "symbolSize": 20,
+                        "children": [
+                          {
+                            "name": "屯田郎中",
+                            "value": "从五品上",
+                            "quota": 1,
+                            "description": "屯田司长官。"
+                          },
+                          {
+                            "name": "屯田员外郎",
+                            "value": "从六品上",
+                            "quota": 1,
+                            "description": "协助郎中处理司务。"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "虞部司",
+                        "value": "山泽之司",
+                        "description": "掌京城街巷种植、山泽苑囿、草木薪炭等事务。",
+                        "symbolSize": 20,
+                        "children": [
+                          {
+                            "name": "虞部郎中",
+                            "value": "从五品上",
+                            "quota": 1,
+                            "description": "虞部司长官。"
+                          },
+                          {
+                            "name": "虞部员外郎",
+                            "value": "从六品上",
+                            "quota": 1,
+                            "description": "协助郎中处理司务。"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "水部司",
+                        "value": "水利之司",
+                        "description": "掌天下川渎陂池之政令，以导达沟洫，堰决河渠。",
+                        "symbolSize": 20,
+                        "children": [
+                          {
+                            "name": "水部郎中",
+                            "value": "从五品上",
+                            "quota": 1,
+                            "description": "水部司长官。"
+                          },
+                          {
+                            "name": "水部员外郎",
+                            "value": "从六品上",
+                            "quota": 1,
+                            "description": "协助郎中处理司务。"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "政事堂（中书门下）",
+        "value": "宰相议政中枢",
+        "staffEstimate": "若干宰相与属吏（不定员，随相位增减）",
+        "description": "宰相会议与中枢运转的核心场域，统摄三省关键政务协同；开元时期“中书门下”之名尤为常见，形成以宰相联署、分房办事的运作形态。",
+        "symbolSize": 55,
+        "itemStyle": {
+          "color": "#8e44ad"
         },
-        {
-          "name": "兵部",
-          "value": "军事行政",
-          "staffEstimate": "约15–25人（制度口径近似）",
-          "description": "掌武选、地图、车马、甲械等军事行政。下设兵部、职方、驾部、库部四司。",
-          "symbolSize": 50,
-          "itemStyle": { "color": "#e67e22" },
-          "historicalFigures": [
-            {
-              "name": "李靖",
-              "positions": ["兵部尚书（曾任）"],
-              "era": "贞观前后",
-              "note": "名将兼官员，体现兵部在军事行政中的地位。"
+        "children": [
+          {
+            "name": "同中书门下三品/平章事",
+            "value": "实质宰相衔",
+            "quota": "不定",
+            "description": "参与政事堂议政、共署制敕，体现宰相群体化运作。",
+            "itemStyle": {
+              "color": "#9b59b6"
             }
-          ],
-          "children": [
-            {
-              "name": "兵部尚书",
-              "value": "正三品",
-              "quota": 1,
-              "description": "兵部最高长官，掌军事行政与四司总务。",
-              "symbolSize": 25,
-              "children": [
-                {
-                  "name": "兵部侍郎",
-                  "value": "正四品下",
-                  "quota": 2,
-                  "description": "尚书副手，协助管理军务及各司。",
-                  "symbolSize": 22,
-                  "children": [
-                    {
-                      "name": "兵部司",
-                      "value": "本司",
-                      "description": "掌武官阶品、卫府名额、军戎差遣等事务。",
-                      "symbolSize": 20,
-                      "children": [
-                        { "name": "兵部郎中", "value": "从五品上", "quota": 2, "description": "兵部司长官。" },
-                        { "name": "兵部员外郎", "value": "从六品上", "quota": 2, "description": "协助郎中处理司务。" }
-                      ]
-                    },
-                    {
-                      "name": "职方司",
-                      "value": "地图之司",
-                      "description": "掌地图、城隍、镇戍、烽候、道路等事务。",
-                      "symbolSize": 20,
-                      "children": [
-                        { "name": "职方郎中", "value": "从五品上", "quota": 1, "description": "职方司长官。" },
-                        { "name": "职方员外郎", "value": "从六品上", "quota": 1, "description": "协助郎中处理司务。" }
-                      ]
-                    },
-                    {
-                      "name": "驾部司",
-                      "value": "车马之司",
-                      "description": "掌舆辇、车乘、邮驿、厩牧等事务。",
-                      "symbolSize": 20,
-                      "children": [
-                        { "name": "驾部郎中", "value": "从五品上", "quota": 1, "description": "驾部司长官。" },
-                        { "name": "驾部员外郎", "value": "从六品上", "quota": 1, "description": "协助郎中处理司务。" }
-                      ]
-                    },
-                    {
-                      "name": "库部司",
-                      "value": "甲械之司",
-                      "description": "掌戎器、卤簿、仪仗等事务。",
-                      "symbolSize": 20,
-                      "children": [
-                        { "name": "库部郎中", "value": "从五品上", "quota": 1, "description": "库部司长官。" },
-                        { "name": "库部员外郎", "value": "从六品上", "quota": 1, "description": "协助郎中处理司务。" }
-                      ]
-                    }
-                  ]
-                }
-              ]
+          },
+          {
+            "name": "吏房（例）",
+            "value": "分房属吏",
+            "quota": "不定",
+            "description": "按事务分房协助宰相处理文移与案牍（名称与设置可随时期变化）。",
+            "itemStyle": {
+              "color": "#bb8fce"
             }
-          ]
+          },
+          {
+            "name": "兵房/户房/刑礼房（例）",
+            "value": "分房属吏",
+            "quota": "不定",
+            "description": "对应军务、财政、刑礼等议题的分房处理形态（概括性呈现）。",
+            "itemStyle": {
+              "color": "#d2b4de"
+            }
+          }
+        ]
+      },
+      {
+        "name": "御史台",
+        "value": "监察机构（一台）",
+        "staffEstimate": "约20–40人（含三院；口径近似）",
+        "description": "中央监察机关，长官御史大夫，副为御史中丞；下设台院、殿院、察院，分别由侍御史、殿中侍御史、监察御史等分司纠弹与巡按。",
+        "symbolSize": 58,
+        "itemStyle": {
+          "color": "#2c3e50"
         },
-        {
-          "name": "刑部",
-          "value": "司法刑狱",
-          "staffEstimate": "约15–25人（制度口径近似）",
-          "description": "掌律令、刑法、徒隶、按复谳禁之政。下设刑部、都官、比部、司门四司。",
-          "symbolSize": 50,
-          "itemStyle": { "color": "#34495e" },
-          "historicalFigures": [],
-          "children": [
-            {
-              "name": "刑部尚书",
-              "value": "正三品",
-              "quota": 1,
-              "description": "刑部最高长官，掌司法刑狱与四司总务。",
-              "symbolSize": 25,
-              "children": [
-                {
-                  "name": "刑部侍郎",
-                  "value": "正四品下",
-                  "quota": 2,
-                  "description": "尚书副手，协助管理司法及各司。",
-                  "symbolSize": 22,
-                  "children": [
-                    {
-                      "name": "刑部司",
-                      "value": "本司",
-                      "description": "掌律法、刑法、按复等事务。",
-                      "symbolSize": 20,
-                      "children": [
-                        { "name": "刑部郎中", "value": "从五品上", "quota": 2, "description": "刑部司长官。" },
-                        { "name": "刑部员外郎", "value": "从六品上", "quota": 2, "description": "协助郎中处理司务。" }
-                      ]
-                    },
-                    {
-                      "name": "都官司",
-                      "value": "徒隶之司",
-                      "description": "掌俘隶簿录，给衣粮医药等事务。",
-                      "symbolSize": 20,
-                      "children": [
-                        { "name": "都官郎中", "value": "从五品上", "quota": 1, "description": "都官司长官。" },
-                        { "name": "都官员外郎", "value": "从六品上", "quota": 1, "description": "协助郎中处理司务。" }
-                      ]
-                    },
-                    {
-                      "name": "比部司",
-                      "value": "勾检之司",
-                      "description": "掌勾会内外赋敛、经费、俸禄等事务。",
-                      "symbolSize": 20,
-                      "children": [
-                        { "name": "比部郎中", "value": "从五品上", "quota": 1, "description": "比部司长官。" },
-                        { "name": "比部员外郎", "value": "从六品上", "quota": 1, "description": "协助郎中处理司务。" }
-                      ]
-                    },
-                    {
-                      "name": "司门司",
-                      "value": "门禁之司",
-                      "description": "掌天下诸门及关隘出入往来之籍赋。",
-                      "symbolSize": 20,
-                      "children": [
-                        { "name": "司门郎中", "value": "从五品上", "quota": 1, "description": "司门司长官。" },
-                        { "name": "司门员外郎", "value": "从六品上", "quota": 1, "description": "协助郎中处理司务。" }
-                      ]
-                    }
-                  ]
-                }
-              ]
+        "children": [
+          {
+            "name": "御史大夫",
+            "value": "正三品（常见品秩）",
+            "quota": "1",
+            "description": "掌持刑宪典章，纠正百官。",
+            "itemStyle": {
+              "color": "#34495e"
             }
-          ]
+          },
+          {
+            "name": "御史中丞",
+            "value": "从三品（常见品秩）",
+            "quota": "2左右",
+            "description": "副贰御史大夫，分理台务。",
+            "itemStyle": {
+              "color": "#566573"
+            }
+          },
+          {
+            "name": "台院",
+            "value": "纠弹百官",
+            "description": "以侍御史为主官，负责弹劾纠举与台务日常。",
+            "children": [
+              {
+                "name": "侍御史",
+                "value": "从六品下（常见品秩）",
+                "quota": "若干",
+                "description": "台院主力监察官。"
+              }
+            ]
+          },
+          {
+            "name": "殿院",
+            "value": "殿廷纠察",
+            "description": "以殿中侍御史为主官，掌殿廷礼仪纠察与近侍监察。",
+            "children": [
+              {
+                "name": "殿中侍御史",
+                "value": "从七品上（常见品秩）",
+                "quota": "若干",
+                "description": "殿院监察官。"
+              }
+            ]
+          },
+          {
+            "name": "察院",
+            "value": "巡按监察",
+            "description": "以监察御史为主官，分道出按，巡察地方与百官。",
+            "children": [
+              {
+                "name": "监察御史",
+                "value": "正八品上（常见品秩）",
+                "quota": "若干",
+                "description": "察院监察官，分道巡按。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "九寺",
+        "value": "专门事务机关",
+        "staffEstimate": "各寺规模不一（合计约百人量级，口径近似）",
+        "description": "除三省六部外，唐代中央另设九寺，分掌礼乐、司法、财政、宗室、仓农、车马、警卫与接待等专门事务。",
+        "symbolSize": 60,
+        "itemStyle": {
+          "color": "#7f8c8d"
         },
-        {
-          "name": "工部",
-          "value": "工程营造",
-          "staffEstimate": "约15–25人（制度口径近似）",
-          "description": "掌山泽、屯田、工匠、诸司公廨纸笔墨等。下设工部、屯田、虞部、水部四司。",
-          "symbolSize": 50,
-          "itemStyle": { "color": "#16a085" },
-          "historicalFigures": [
-            {
-              "name": "杜甫",
-              "positions": ["工部员外郎（曾任）"],
-              "era": "乾元—上元",
-              "note": "因曾任此职，后世常称杜工部。"
-            }
-          ],
-          "children": [
-            {
-              "name": "工部尚书",
-              "value": "正三品",
-              "quota": 1,
-              "description": "工部最高长官，掌工程营造与四司总务。",
-              "symbolSize": 25,
-              "children": [
-                {
-                  "name": "工部侍郎",
-                  "value": "正四品下",
-                  "quota": 2,
-                  "description": "尚书副手，协助管理工务及各司。",
-                  "symbolSize": 22,
-                  "children": [
-                    {
-                      "name": "工部司",
-                      "value": "本司",
-                      "description": "掌城池土木之工役程式等事务。",
-                      "symbolSize": 20,
-                      "children": [
-                        { "name": "工部郎中", "value": "从五品上", "quota": 2, "description": "工部司长官。" },
-                        { "name": "工部员外郎", "value": "从六品上", "quota": 2, "description": "协助郎中处理司务。" }
-                      ]
-                    },
-                    {
-                      "name": "屯田司",
-                      "value": "屯田之司",
-                      "description": "掌天下屯田及文武职田、诸司公廨田等事务。",
-                      "symbolSize": 20,
-                      "children": [
-                        { "name": "屯田郎中", "value": "从五品上", "quota": 1, "description": "屯田司长官。" },
-                        { "name": "屯田员外郎", "value": "从六品上", "quota": 1, "description": "协助郎中处理司务。" }
-                      ]
-                    },
-                    {
-                      "name": "虞部司",
-                      "value": "山泽之司",
-                      "description": "掌京城街巷种植、山泽苑囿、草木薪炭等事务。",
-                      "symbolSize": 20,
-                      "children": [
-                        { "name": "虞部郎中", "value": "从五品上", "quota": 1, "description": "虞部司长官。" },
-                        { "name": "虞部员外郎", "value": "从六品上", "quota": 1, "description": "协助郎中处理司务。" }
-                      ]
-                    },
-                    {
-                      "name": "水部司",
-                      "value": "水利之司",
-                      "description": "掌天下川渎陂池之政令，以导达沟洫，堰决河渠。",
-                      "symbolSize": 20,
-                      "children": [
-                        { "name": "水部郎中", "value": "从五品上", "quota": 1, "description": "水部司长官。" },
-                        { "name": "水部员外郎", "value": "从六品上", "quota": 1, "description": "协助郎中处理司务。" }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
+        "children": [
+          {
+            "name": "太常寺",
+            "value": "礼乐祭祀",
+            "description": "掌礼乐、郊庙、雅乐等。"
+          },
+          {
+            "name": "光禄寺",
+            "value": "膳羞供给",
+            "description": "掌宴飨膳羞与宫廷供给相关事务。"
+          },
+          {
+            "name": "卫尉寺",
+            "value": "宫禁卫护",
+            "description": "掌宫门警卫与器用守卫等。"
+          },
+          {
+            "name": "宗正寺",
+            "value": "宗室事务",
+            "description": "掌宗室谱牒、礼仪与相关事务。"
+          },
+          {
+            "name": "太仆寺",
+            "value": "车马畜牧",
+            "description": "掌马政、车舆及相关供给。"
+          },
+          {
+            "name": "大理寺",
+            "value": "审刑复核",
+            "description": "掌司法审理与复核。"
+          },
+          {
+            "name": "鸿胪寺",
+            "value": "宾客朝贡",
+            "description": "掌接待外使、朝贡与礼仪。"
+          },
+          {
+            "name": "司农寺",
+            "value": "农政仓储",
+            "description": "掌农政、屯田与仓储相关事务。"
+          },
+          {
+            "name": "太府寺",
+            "value": "财用出纳",
+            "description": "掌库藏、财用出纳等专门事务。"
+          }
+        ]
+      },
+      {
+        "name": "五监",
+        "value": "工程/教育/器用等机构",
+        "staffEstimate": "各监规模不一（合计数十至百人量级，口径近似）",
+        "description": "唐代中央设置若干“监”以掌教育、营造、器用、水利与军器等事务（五监为常用概括口径）。",
+        "symbolSize": 60,
+        "itemStyle": {
+          "color": "#16a085"
+        },
+        "children": [
+          {
+            "name": "国子监",
+            "value": "最高学府",
+            "description": "掌国学教育、太学与贡举相关的教育管理。"
+          },
+          {
+            "name": "少府监",
+            "value": "宫廷器用",
+            "description": "掌宫廷手工业与器用供给等。"
+          },
+          {
+            "name": "军器监",
+            "value": "兵器制造",
+            "description": "掌兵器军械的制造与管理（名称与设置随时期有变化）。"
+          },
+          {
+            "name": "将作监",
+            "value": "营造工程",
+            "description": "掌宫室、城池等营造工程与工匠调度。"
+          },
+          {
+            "name": "都水监",
+            "value": "水利河渠",
+            "description": "掌水利、河渠与工程修治。"
+          }
+        ]
+      },
+      {
+        "name": "卫府体系（十二卫/十六卫）",
+        "value": "中央军事与宿卫",
+        "staffEstimate": "随时期与兵制变化（府兵—禁军）而大幅变动",
+        "description": "唐代中央以诸卫统军并承担宿卫、门禁、警备等职责；“十二卫/十六卫”的口径与编制随时代演变。",
+        "symbolSize": 58,
+        "itemStyle": {
+          "color": "#c0392b"
+        },
+        "children": [
+          {
+            "name": "左右卫",
+            "value": "宿卫外军",
+            "description": "中央宿卫卫府之一。"
+          },
+          {
+            "name": "左右骁卫",
+            "value": "宿卫外军",
+            "description": "卫府之一。"
+          },
+          {
+            "name": "左右武卫",
+            "value": "宿卫外军",
+            "description": "卫府之一。"
+          },
+          {
+            "name": "左右威卫",
+            "value": "宿卫外军",
+            "description": "卫府之一。"
+          },
+          {
+            "name": "左右领军卫",
+            "value": "统领宿卫",
+            "description": "卫府之一。"
+          },
+          {
+            "name": "左右金吾卫",
+            "value": "京师巡警",
+            "description": "掌京师巡警、纠察等。"
+          },
+          {
+            "name": "左右监门卫",
+            "value": "门禁守卫",
+            "description": "掌诸门禁卫及门籍等。"
+          },
+          {
+            "name": "左右千牛卫",
+            "value": "近侍护卫",
+            "description": "近侍宿卫体系。"
+          }
+        ]
+      }
+    ]
+  }
+  
