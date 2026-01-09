@@ -10,6 +10,8 @@ const myChart = echarts.init(chartDom);
 let currentViewMode = 'org'; // 'org' 或 'staff'
 let originalTreeData = null; // 保存原始数据
 let staffViewData = null; // 员额视图数据
+let preprocessedOrgData = null; // 组织架构视图预处理数据
+let preprocessedStaffData = null; // 员额视图预处理数据
 
 // ===============================
 // 缩放状态
@@ -255,6 +257,18 @@ function setupZoomControls() {
       setZoom(1.0);
     }
   });
+
+  // 添加滚轮缩放支持
+  const chartContainer = document.querySelector('.chart-container');
+  if (chartContainer) {
+    chartContainer.addEventListener('wheel', (e) => {
+      if (e.ctrlKey) {
+        e.preventDefault();
+        const delta = e.deltaY > 0 ? -ZOOM_STEP : ZOOM_STEP;
+        setZoom(currentZoom + delta);
+      }
+    });
+  }
 }
 
 // ===============================
@@ -292,9 +306,16 @@ function expandAllNodes() {
   // 获取当前option
   const option = myChart.getOption();
   
-  // 修改初始展开深度为100（足够大的值）
   if (option.series && option.series[0]) {
+    // 根据当前视图模式恢复完整预处理数据
+    if (currentViewMode === 'org') {
+      option.series[0].data = [preprocessedOrgData];
+    } else {
+      option.series[0].data = [preprocessedStaffData];
+    }
+    
     option.series[0].initialTreeDepth = 100;
+    option.series[0].lineStyle = { color: '#aaa', width: 1.2, curveness: 0 }; // 恢复连接线样式
     
     // 重新设置图表选项
     myChart.setOption(option, true);
@@ -310,6 +331,18 @@ function expandAllNodes() {
 }
 
 // ===============================
+// 递归展开所有节点
+// ===============================
+function expandAll(node) {
+  if (node.children && node.children.length > 0) {
+    node.children.forEach(child => {
+      child.collapsed = false;
+      expandAll(child);
+    });
+  }
+}
+
+// ===============================
 // 折叠全部节点
 // ===============================
 function collapseAllNodes() {
@@ -319,9 +352,20 @@ function collapseAllNodes() {
   // 获取当前option
   const option = myChart.getOption();
   
-  // 修改初始展开深度为1（只显示根节点）
   if (option.series && option.series[0]) {
-    option.series[0].initialTreeDepth = 1;
+    // 创建只包含根节点的折叠数据
+    const treeData = option.series[0].data[0];
+    const collapsedData = {
+      name: treeData.name,
+      itemStyle: treeData.itemStyle,
+      symbolSize: treeData.symbolSize,
+      children: [] // 移除所有子节点
+    };
+    
+    // 重新设置数据为只显示根节点
+    option.series[0].data = [collapsedData];
+    option.series[0].initialTreeDepth = 1; // 显示根节点
+    option.series[0].lineStyle = { width: 0 }; // 隐藏连接线
     
     // 重新设置图表选项
     myChart.setOption(option, true);
@@ -333,6 +377,18 @@ function collapseAllNodes() {
       // 更新按钮状态
       updateExpandButtonState();
     }, 300);
+  }
+}
+
+// ===============================
+// 递归折叠所有节点
+// ===============================
+function collapseAll(node) {
+  if (node.children && node.children.length > 0) {
+    node.children.forEach(child => {
+      child.collapsed = true;
+      collapseAll(child);
+    });
   }
 }
 
@@ -880,8 +936,14 @@ function switchToOrgView() {
   
   console.log('切换到组织架构视图');
   
-  // 预处理树数据
-  preprocessTree(originalTreeData);
+  // 重置缩放比例
+  setZoom(1.0);
+  
+  // 预处理树数据（深拷贝避免污染原始数据）
+  if (!preprocessedOrgData) {
+    preprocessedOrgData = JSON.parse(JSON.stringify(originalTreeData));
+    preprocessTree(preprocessedOrgData);
+  }
   
   // ✅ 重要修改：调整图表配置，修复标签显示问题
   const option = {
@@ -905,7 +967,7 @@ function switchToOrgView() {
     series: [
       {
         type: 'tree',
-        data: [originalTreeData],
+        data: [preprocessedOrgData],
         orient: 'TB',                 // 纵向
         layout: 'orthogonal',         // 正交布局（最稳定）
         edgeShape: 'polyline',        // 直线
@@ -992,12 +1054,14 @@ function switchToStaffView() {
   
   console.log('切换到员额可视化视图');
   
-  // 深拷贝原始数据，避免污染
-  const treeDataCopy = JSON.parse(JSON.stringify(originalTreeData));
+  // 重置缩放比例
+  setZoom(1.0);
   
-  // 预处理员额视图数据
-  const processedData = preprocessTreeForStaffView(treeDataCopy);
-  const staffTreeData = processedData.treeData;
+  // 深拷贝原始数据，避免污染
+  if (!preprocessedStaffData) {
+    const processedData = preprocessTreeForStaffView(JSON.parse(JSON.stringify(originalTreeData)));
+    preprocessedStaffData = processedData.treeData;
+  }
   const departmentStats = processedData.departmentStats;
   
   // 将部门统计转换为数组
@@ -1099,7 +1163,7 @@ function switchToStaffView() {
     series: [
       {
         type: 'tree',
-        data: [staffTreeData],
+        data: [preprocessedStaffData],
         orient: 'TB',                 // 纵向
         layout: 'orthogonal',         // 正交布局（最稳定）
         edgeShape: 'polyline',        // 直线
@@ -1205,10 +1269,15 @@ function bindChartEvents() {
   myChart.off('treeexpand');
   myChart.off('treecollapse');
   
-  // 点击节点 → 右侧信息面板
+  // 点击节点 → 右侧信息面板 或 展开第一层
   myChart.on('click', params => {
-    if (params.data) {
-      updateInfoPanel(params.data);
+    const nodeData = params.data;
+    if (nodeData && nodeData.name === '唐代中央官制' && !isAllExpanded) {
+      // 点击根节点且当前折叠状态，展开第一层
+      expandAllNodes();
+    } else if (nodeData) {
+      // 其他节点显示信息面板
+      updateInfoPanel(nodeData);
     }
   });
   
