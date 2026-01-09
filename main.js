@@ -12,6 +12,7 @@ let originalTreeData = null; // 保存原始数据
 let staffViewData = null; // 员额视图数据
 let preprocessedOrgData = null; // 组织架构视图预处理数据
 let preprocessedStaffData = null; // 员额视图预处理数据
+let staffDepartmentStats = null; // 员额视图：部门统计缓存
 
 // ===============================
 // 缩放状态
@@ -707,7 +708,7 @@ function getNodeType(node) {
   }
   
   // 有员额数据的可能是部门节点
-  if (node.staffEstimate && parseInt(node.staffEstimate) > 0) {
+  if (node.staffEstimate && parseStaffEstimate(node.staffEstimate) > 0) {
     return 'department';
   }
   
@@ -741,21 +742,20 @@ function getSubNodeColor(dept, nodeName) {
 // 计算员额节点大小（圆形节点，使用半径）
 // ===============================
 function calculateCircleNodeSize(staffNum, maxStaff) {
-  if (!staffNum || staffNum <= 0) {
-    return 12; // 最小半径
-  }
-  
-  const minRadius = 12; // 最小半径
-  const maxRadius = 35; // 最大半径
-  
-  // 线性缩放
-  let radius = minRadius;
-  
-  if (maxStaff > 0) {
-    const ratio = staffNum / maxStaff;
-    radius = minRadius + ratio * (maxRadius - minRadius);
-  }
-  
+  // 员额视图节点大小：与员额相关，但压缩极端值（避免过大/过小）
+  const minRadius = 40; // 最小半径（整体调大）
+  const maxRadius = 100; // 最大半径（整体调大，但仍避免爆炸）
+
+  const n = Number(staffNum) || 0;
+  const m = Number(maxStaff) || 0;
+
+  if (n <= 0 || m <= 0) return minRadius;
+
+  // 使用 sqrt 缩放：小员额差异可见，大员额不至于“碾压”其他节点
+  const ratio = Math.max(0, Math.min(1, n / m));
+  const scaled = Math.sqrt(ratio);
+
+  const radius = minRadius + scaled * (maxRadius - minRadius);
   return Math.max(minRadius, Math.min(radius, maxRadius));
 }
 
@@ -776,6 +776,45 @@ function splitTextForVertical(text, maxLength = 8) {
   return displayText.split('').join('\n');
 }
 
+
+// ===============================
+// 解析“员额/人数/编制”等文本为数值（用于节点大小映射）
+// - 支持："约150–200人"、"20-30人"、"常置2人左右"、"名义1人" 等
+// - 规则：若出现区间，取前两个数字的均值；否则取第一个数字
+// ===============================
+function parseStaffEstimate(value) {
+  if (value === undefined || value === null) return 0;
+  if (typeof value === 'number' && isFinite(value)) return Math.max(0, value);
+
+  const s0 = String(value).trim();
+  if (!s0) return 0;
+
+  // 统一各种破折号/连接符，并把“至”视为区间分隔
+  const s = s0
+    .replace(/[—–−]/g, '-')
+    .replace(/至/g, '-');
+
+  const nums = s.match(/\d+(?:\.\d+)?/g);
+  if (!nums || nums.length === 0) return 0;
+
+  const a = parseFloat(nums[0]);
+  if (!isFinite(a)) return 0;
+
+  if (nums.length >= 2) {
+    const b = parseFloat(nums[1]);
+    if (isFinite(b)) return Math.round((a + b) / 2);
+  }
+  return Math.round(a);
+}
+
+// 优先使用 staffEstimate；若没有或解析为 0，则回退使用 quota（编制/常置）
+function getNodeStaffNumber(node) {
+  const n1 = parseStaffEstimate(node?.staffEstimate);
+  if (n1 > 0) return n1;
+  const n2 = parseStaffEstimate(node?.quota);
+  return n2 > 0 ? n2 : 0;
+}
+
 // ===============================
 // 提取所有部门的员额统计数据
 // ===============================
@@ -786,7 +825,7 @@ function extractDepartmentStats(treeData) {
   let globalMaxStaff = 0;
   
   const traverseForMax = (node) => {
-    const staffNum = parseInt(node.staffEstimate) || 0;
+    const staffNum = getNodeStaffNumber(node) || 0;
     globalMaxStaff = Math.max(globalMaxStaff, staffNum);
     
     if (node.children && node.children.length) {
@@ -802,7 +841,7 @@ function extractDepartmentStats(treeData) {
   // 然后为每个部门收集统计信息
   const traverseForStats = (node, parentDept = '其他') => {
     const dept = getDepartmentForNode(node);
-    const staffNum = parseInt(node.staffEstimate) || 0;
+    const staffNum = getNodeStaffNumber(node) || 0;
     
     // 如果当前节点没有明确部门，继承父节点的部门
     const effectiveDept = (dept === '其他' && parentDept !== '其他') ? parentDept : dept;
@@ -1199,10 +1238,14 @@ function switchToStaffView() {
   // 重置缩放比例
   setZoom(1.0);
   
-  // 深拷贝原始数据，避免污染
-  if (!preprocessedStaffData) {
-    const processedData = preprocessTreeForStaffView(JSON.parse(JSON.stringify(originalTreeData)));
+  // 深拷贝原始数据，避免污染（只在第一次进入员额视图时做预处理）
+  let processedData;
+  if (!preprocessedStaffData || !staffDepartmentStats) {
+    processedData = preprocessTreeForStaffView(JSON.parse(JSON.stringify(originalTreeData)));
     preprocessedStaffData = processedData.treeData;
+    staffDepartmentStats = processedData.departmentStats;
+  } else {
+    processedData = { treeData: preprocessedStaffData, departmentStats: staffDepartmentStats };
   }
   const departmentStats = processedData.departmentStats;
   
@@ -1482,7 +1525,7 @@ function updateInfoPanel(node) {
   if (node.value) html += `<p><b>级别：</b>${node.value}</p>`;
   
   if (node.staffEstimate || node.staffNumber) {
-    const staffNum = node.staffNumber || parseInt(node.staffEstimate) || 0;
+    const staffNum = node.staffNumber || parseStaffEstimate(node.staffEstimate) || 0;
     html += `<p><b>员额：</b>${staffNum}人`;
     
     // 在员额视图下，添加节点大小信息
