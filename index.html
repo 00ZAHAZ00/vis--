@@ -34,8 +34,22 @@
   </div>
 </header>
 
-<!-- ===== 控制按钮 ===== -->
-<div class="controls">
+<!-- ===== 图表区域（可滚动） ===== -->
+<div class="chart-container">
+  <!-- ✅ 新增：内部包装器，用于动态扩展 -->
+  <div class="chart-inner-wrapper">
+    <!-- 左侧：组织架构/员额树状图 -->
+    <div id="org-chart"></div>
+  </div>
+  
+  <!-- 右侧：员额旭日图（默认隐藏，员额可视化视图时显示） -->
+  <div id="sunburst-container" style="display: none;">
+    <div id="sunburst-chart"></div>
+  </div>
+</div>
+
+<!-- ===== 左侧控制栏 ===== -->
+<div class="left-controls">
   <!-- 视图切换滑块 -->
   <div class="view-toggle">
     <input type="radio" id="view-org" name="view-mode" value="org" checked>
@@ -52,16 +66,34 @@
     
     <div class="toggle-slider"></div>
   </div>
-</div>
 
-<!-- ===== 图表区域（可滚动） ===== -->
-<div class="chart-container">
-  <!-- 左侧：组织架构/员额树状图 -->
-  <div id="org-chart"></div>
-  
-  <!-- 右侧：员额旭日图（默认隐藏，员额可视化视图时显示） -->
-  <div id="sunburst-container" style="display: none;">
-    <div id="sunburst-chart"></div>
+  <!-- 缩放控制 -->
+  <div class="zoom-controls">
+    <button id="zoom-out" class="zoom-btn" title="缩小">
+      <i class="fas fa-search-minus"></i>
+    </button>
+    <div class="zoom-slider-container">
+      <input type="range" id="zoom-slider" min="50" max="200" value="100" class="zoom-slider">
+      <span id="zoom-percent" class="zoom-percent">100%</span>
+    </div>
+    <button id="zoom-in" class="zoom-btn" title="放大">
+      <i class="fas fa-search-plus"></i>
+    </button>
+    <button id="zoom-reset" class="zoom-btn" title="重置缩放">
+      <i class="fas fa-undo-alt"></i>
+    </button>
+  </div>
+
+  <!-- 展开/折叠控制 -->
+  <div class="expand-controls">
+    <button id="expand-all" class="expand-btn" title="展开全部节点">
+      <i class="fas fa-expand-alt"></i>
+      <span>展开全部</span>
+    </button>
+    <button id="collapse-all" class="expand-btn" title="折叠全部节点">
+      <i class="fas fa-compress-alt"></i>
+      <span>折叠全部</span>
+    </button>
   </div>
 </div>
 
@@ -72,7 +104,7 @@
       <i class="fas fa-info-circle"></i>
       职官信息
     </h2>
-    <span class="period-tag">开元年间 (713–741)</span>
+    <span class="period-tag">开元年间 (713-741)</span>
   </div>
 
   <div class="panel-content">
@@ -99,11 +131,7 @@
 
 <!-- ===== 页脚 ===== -->
 <footer class="footer">
-  <p>© 2026 唐代职官可视化项目 | ECharts 5.4.3</p>
-  <p>
-    数据源：data.json |
-    更新日期：<span id="current-date"></span>
-  </p>
+  <p>© 2026 唐代职官体系可视化项目</p>
 </footer>
 
 <!-- ===== JS ===== -->
