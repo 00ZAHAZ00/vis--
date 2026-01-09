@@ -8,13 +8,20 @@
 html, body {
     width: 100%;
     height: 100%;
-    overflow: hidden;
     font-family: 'Microsoft YaHei', 'Segoe UI', 'SimHei', sans-serif;
+    /* 移除原来的背景色，改用背景图 */
 }
 
+/* ❗ 页面主体不滚动，仅在图表容器内滚动 */
 body {
     position: relative;
-    background: #f5f7fa;
+    overflow: hidden; /* 页面本身不产生滚动条 */
+    /* ✅ 修改：背景图移到body上，并设置为fixed确保全覆盖 */
+    background: url('assets/bg.png') no-repeat center center fixed;
+    background-size: cover;
+    /* 添加轻微遮罩层，提高文字可读性 */
+    background-color: rgba(0, 0, 0, 0.1);
+    background-blend-mode: overlay;
 }
 
 /* ========== 头部 ========== */
@@ -24,7 +31,7 @@ body {
     left: 0;
     width: 100%;
     height: 80px;
-    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    background: linear-gradient(135deg, rgba(44, 62, 80, 0.9) 0%, rgba(52, 73, 94, 0.9) 100%);
     color: white;
     padding: 15px 30px;
     z-index: 1000;
@@ -32,6 +39,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    /* ✅ 新增：毛玻璃效果 */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .header h1 {
@@ -39,10 +49,6 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-}
-
-.header h1 i {
-    color: #3498db;
 }
 
 .subtitle {
@@ -60,134 +66,181 @@ body {
     gap: 10px;
 }
 
-.control-btn {
-    padding: 8px 16px;
-    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
-}
-
-.control-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
-}
-
 /* ========== 图表区域 ========== */
 .chart-container {
-    position: fixed;
-    inset: 0;
-    background: white;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    right: 320px;
+    bottom: 0;
+    /* ✅ 修改：移除背景图设置，改为透明 */
+    background: transparent;
     z-index: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* ✅ 新增：相对定位，允许内部绝对定位元素 */
+    position: relative;
 }
 
+/* ========== ECharts 容器 ========== */
 #org-chart {
     width: 100%;
-    height: 100%;
+    min-height: 600px;
+    padding: 30px 20px;
+    background: transparent !important;
+    /* ✅ 新增：平滑过渡效果 */
+    transition: width 0.3s ease;
 }
 
-/* ========== 信息面板 ========== */
+/* ========== 旭日图容器 ========== */
+#sunburst-container {
+    /* ✅ 新增：旭日图容器样式 */
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(5px);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    display: none; /* 默认隐藏，仅在员额视图显示 */
+    z-index: 2;
+}
+
+/* 旭日图画布 */
+#sunburst-chart {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+}
+
+/* ========== 信息面板 - 美化设计 ========== */
 .info-panel {
     position: fixed;
     top: 80px;
     right: 0;
     width: 320px;
     height: calc(100vh - 80px);
-    background: white;
-    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+    /* ✅ 新设计：渐变背景与阴影，增加透明度 */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 249, 250, 0.9) 100%);
+    box-shadow: -4px 0 25px rgba(0, 0, 0, 0.15);
     z-index: 1000;
     display: flex;
     flex-direction: column;
+    /* ✅ 新：圆角边框 */
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
+    overflow: hidden; /* 确保内部元素不溢出圆角 */
+    /* ✅ 新增：毛玻璃效果 */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
+/* 面板头部 */
 .panel-header {
-    padding: 15px 20px;
-    background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+    /* ✅ 新设计：更精致的头部，增加透明度 */
+    background: linear-gradient(135deg, rgba(44, 62, 80, 0.9) 0%, rgba(52, 73, 94, 0.9) 100%);
     color: white;
+    padding: 20px 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .panel-header h2 {
-    font-size: 1.2rem;
+    /* ✅ 字体修改位置1：标题字体 */
+    font-family: 'SimHei', 'Microsoft YaHei', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    margin-bottom: 8px;
 }
 
 .period-tag {
-    background: rgba(52, 152, 219, 0.2);
+    /* ✅ 新设计：历史时期标签 */
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.15);
     padding: 4px 12px;
     border-radius: 20px;
-    font-size: 0.8rem;
-    border: 1px solid rgba(52, 152, 219, 0.3);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
 }
 
-/* ========== 面板内容 ========== */
+/* 面板内容区域 */
 .panel-content {
-    padding: 20px;
+    padding: 0; /* 改为由内部元素控制间距 */
     overflow-y: auto;
     flex: 1;
-    display: flex;
-    flex-direction: column;
 }
 
+/* 主要内容区域 */
 .main-content-area {
-    flex: 1;
+    padding: 24px;
+    border-bottom: 1px solid rgba(234, 234, 234, 0.7);
 }
 
+.selected-info {
+    /* ✅ 字体修改位置2：选中信息的字体 */
+    font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+.selected-info h3 {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #4aa3df;
+}
+
+.selected-info p {
+    margin-bottom: 12px;
+    font-size: 1rem;
+}
+
+.selected-info b {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.selected-info ul {
+    margin: 12px 0;
+    padding-left: 20px;
+}
+
+.selected-info li {
+    margin-bottom: 6px;
+    padding-left: 8px;
+}
+
+/* 历史背景区域 */
 .historical-context {
-    background: #f8f9fa;
-    padding: 15px;
-    border-radius: 8px;
-    border: 1px solid #e9ecef;
+    padding: 24px;
+    /* ✅ 新设计：浅色背景区分区域 */
+    background: rgba(74, 163, 223, 0.05);
+    border-top: 1px solid rgba(74, 163, 223, 0.2);
 }
 
 .historical-context h3 {
-    font-size: 1rem;
-    margin-bottom: 10px;
+    /* ✅ 字体修改位置3：历史背景标题字体 */
+    font-family: 'SimHei', 'Microsoft YaHei', sans-serif;
+    font-size: 1.2rem;
+    color: #2c3e50;
+    margin-bottom: 16px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
 }
 
-/* ========== 详情样式 ========== */
-.detail-item {
-    background: #f8f9fa;
-    border-left: 3px solid #3498db;
-    padding: 10px;
-    border-radius: 6px;
-    margin-bottom: 12px;
-}
-
-.detail-label {
-    font-weight: 600;
-    font-size: 0.9rem;
-}
-
-.detail-value {
-    color: #e74c3c;
-    font-weight: 500;
-}
-
-/* ========== 历史人物卡片 ========== */
-.figure-card {
-    border: 1px solid #e9ecef;
-    border-radius: 8px;
-    padding: 10px;
-    margin-bottom: 8px;
-    transition: all 0.3s ease;
-}
-
-.figure-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.historical-context p {
+    /* ✅ 字体修改位置4：历史背景正文字体 */
+    font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #444;
+    text-align: justify;
 }
 
 /* ========== 页脚 ========== */
@@ -195,13 +248,14 @@ body {
     position: fixed;
     bottom: 0;
     width: 100%;
-    background: rgba(44, 62, 80, 0.95);
+    background: rgba(44, 62, 80, 0.85);
     color: white;
     padding: 10px 20px;
     font-size: 0.8rem;
     z-index: 1000;
-    display: flex;
-    justify-content: space-between;
+    /* ✅ 新增：毛玻璃效果 */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 /* ========== 全屏按钮 ========== */
@@ -217,4 +271,65 @@ body {
     color: white;
     cursor: pointer;
     z-index: 1001;
+}
+
+/* ========== 视图切换滑块 ========== */
+.view-toggle {
+  position: relative;
+  display: inline-flex;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  padding: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.view-toggle input[type="radio"] {
+  display: none;
+}
+
+.toggle-option {
+  position: relative;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.toggle-option i {
+  font-size: 1rem;
+}
+
+.view-toggle input[type="radio"]:checked + .toggle-option {
+  color: #2c3e50;
+}
+
+.toggle-slider {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  height: calc(100% - 10px);
+  border-radius: 25px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+  width: calc(50% - 10px);
+}
+
+/* 滑块位置：组织架构选中时 */
+#view-org:checked ~ .toggle-slider {
+  transform: translateX(0);
+}
+
+/* 滑块位置：员额可视化选中时 */
+#view-staff:checked ~ .toggle-slider {
+  transform: translateX(calc(100% + 10px));
 }
