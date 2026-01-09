@@ -22,13 +22,16 @@ const MAX_ZOOM = 2.0; // 最大缩放比例
 const ZOOM_STEP = 0.1; // 缩放步长
 
 // ===============================
+// 搜索相关状态
+// ===============================
+let searchTerm = ''; // 当前搜索词
+let highlightedNodes = []; // 高亮的节点（用于重置）
+let currentDepth = 3; // 当前展开深度
+
+// ===============================
 // 展开/折叠状态
 // ===============================
 let isAllExpanded = false; // 是否全部展开
-
-// ===============================
-// 部门颜色映射（确保每个部门颜色不重复）
-// ===============================
 const departmentColors = {
   // 顶层
   '皇帝': '#FFD700',      // 金色
@@ -161,11 +164,11 @@ fetch('data.json')
   .then(res => res.json())
   .then(data => {
     originalTreeData = data; // 保存原始数据
-    preprocessTree(data);
     initChart(data);
     setupViewToggle(); // 设置视图切换监听
     setupZoomControls(); // 设置缩放控制监听
     setupExpandControls(); // 设置展开/折叠控制监听
+    setupSearchControls(); // 设置搜索控制监听
   })
   .catch(err => {
     console.error('加载 data.json 失败：', err);
@@ -187,14 +190,18 @@ function setupViewToggle() {
   orgRadio.addEventListener('change', () => {
     if (currentViewMode !== 'org') {
       currentViewMode = 'org';
+      currentDepth = isAllExpanded ? 100 : 3;
       switchToOrgView();
+      clearSearchHighlights();
     }
   });
   
   staffRadio.addEventListener('change', () => {
     if (currentViewMode !== 'staff') {
       currentViewMode = 'staff';
+      currentDepth = isAllExpanded ? 100 : 3;
       switchToStaffView();
+      clearSearchHighlights();
     }
   });
 }
@@ -272,8 +279,35 @@ function setupZoomControls() {
 }
 
 // ===============================
-// 设置展开/折叠控制监听
+// 设置搜索控制监听
 // ===============================
+function setupSearchControls() {
+  console.log('Setting up search controls');
+  const searchInput = document.getElementById('search-input');
+  const searchClear = document.getElementById('search-clear');
+  
+  if (!searchInput || !searchClear) {
+    console.warn('搜索控件未找到，请确保HTML已更新');
+    return;
+  }
+  
+  console.log('Search input found:', searchInput);
+  
+  // 输入时实时搜索
+  searchInput.addEventListener('input', (e) => {
+    console.log('Search input event triggered, value:', e.target.value);
+    searchTerm = e.target.value.trim().toLowerCase();
+    performSearch();
+  });
+  
+  // 清除搜索
+  searchClear.addEventListener('click', () => {
+    console.log('Clear search triggered');
+    searchInput.value = '';
+    searchTerm = '';
+    clearSearchHighlights();
+  });
+}
 function setupExpandControls() {
   const expandAllBtn = document.getElementById('expand-all');
   const collapseAllBtn = document.getElementById('collapse-all');
@@ -302,6 +336,7 @@ function expandAllNodes() {
   
   console.log('展开全部节点');
   isAllExpanded = true;
+  currentDepth = 100;
   
   // 获取当前option
   const option = myChart.getOption();
@@ -331,15 +366,121 @@ function expandAllNodes() {
 }
 
 // ===============================
-// 递归展开所有节点
+// 执行搜索
 // ===============================
-function expandAll(node) {
-  if (node.children && node.children.length > 0) {
-    node.children.forEach(child => {
-      child.collapsed = false;
-      expandAll(child);
-    });
+function performSearch() {
+  console.log('Performing search for:', searchTerm);
+  if (!searchTerm) {
+    clearSearchHighlights();
+    return;
   }
+  
+  clearSearchHighlights(); // 先清除旧的高亮
+  
+  const data = currentViewMode === 'org' ? preprocessedOrgData : preprocessedStaffData;
+  highlightedNodes = findMatchingNodes(data);
+  console.log('Found matches:', highlightedNodes.length);
+  
+  if (highlightedNodes.length > 0) {
+    // 先展开树以显示所有节点
+    currentDepth = 100;
+    const option = myChart.getOption();
+    option.series[0].initialTreeDepth = currentDepth;
+    myChart.setOption(option, true);
+    
+    // 然后高亮匹配节点
+    highlightedNodes.forEach(node => {
+      console.log('Highlighting node:', node.name);
+      node.itemStyle = { ...node.itemStyle, borderColor: '#FFD700', borderWidth: 5 };
+    });
+    
+    // 重新设置数据
+    option.series[0].data = [data];
+    myChart.setOption(option, true);
+    
+    // 延迟聚焦，确保树已展开
+    setTimeout(() => {
+      // 聚焦到第一个匹配节点
+      const firstMatch = highlightedNodes[0];
+      const dataIndex = getNodeDataIndex(data, firstMatch);
+      console.log('Focusing on node:', firstMatch.name, 'dataIndex:', dataIndex);
+      if (dataIndex !== -1) {
+        myChart.dispatchAction({
+          type: 'treeFocus',
+          seriesIndex: 0,
+          dataIndex: dataIndex
+        });
+      }
+    }, 500);
+  }
+}
+
+// ===============================
+// 查找匹配的节点
+// ===============================
+function findMatchingNodes(node) {
+  const matches = [];
+  
+  function traverse(currentNode) {
+    console.log('Checking node:', currentNode.name);
+    if (currentNode.name.toLowerCase().includes(searchTerm)) {
+      console.log('Match found:', currentNode.name);
+      matches.push(currentNode);
+    }
+    if (currentNode.children) {
+      currentNode.children.forEach(traverse);
+    }
+  }
+  
+  traverse(node);
+  return matches;
+}
+
+// ===============================
+// 获取节点的dataIndex（简化版）
+// ===============================
+function getNodeDataIndex(root, targetNode) {
+  let index = 0;
+  
+  function traverse(currentNode) {
+    if (currentNode === targetNode) {
+      return index;
+    }
+    index++;
+    if (currentNode.children) {
+      for (const child of currentNode.children) {
+        const result = traverse(child);
+        if (result !== -1) return result;
+      }
+    }
+    return -1;
+  }
+  
+  return traverse(root);
+}
+
+// ===============================
+// 清除搜索高亮
+// ===============================
+function clearSearchHighlights() {
+  const data = currentViewMode === 'org' ? preprocessedOrgData : preprocessedStaffData;
+  
+  function resetHighlights(node) {
+    console.log('Resetting node:', node.name);
+    node.itemStyle = { ...node.itemStyle, borderColor: '#1f2d3d', borderWidth: 1 };
+    if (node.children) {
+      node.children.forEach(resetHighlights);
+    }
+  }
+  
+  resetHighlights(data);
+  highlightedNodes = [];
+  
+  // 重新渲染图表
+  const option = myChart.getOption();
+  option.series[0].data = [data];
+  option.series[0].initialTreeDepth = currentDepth;
+  myChart.setOption(option, true);
 }
 
 // ===============================
@@ -348,6 +489,7 @@ function expandAll(node) {
 function collapseAllNodes() {
   console.log('折叠全部节点');
   isAllExpanded = false;
+  currentDepth = 0;
   
   // 获取当前option
   const option = myChart.getOption();
@@ -980,7 +1122,7 @@ function switchToOrgView() {
         levelGap: 120,                // ✅ 增加纵向层级间距
         roam: false,                  // 禁止缩放 & 拖拽
         expandAndCollapse: true,
-        initialTreeDepth: isAllExpanded ? 100 : 3, // 根据展开状态设置初始深度
+        initialTreeDepth: currentDepth, // 根据展开状态设置初始深度
         symbol: 'rect',               // 使用矩形节点（竖长条形）
         symbolSize: val => val,
         label: {
@@ -1176,7 +1318,7 @@ function switchToStaffView() {
         levelGap: 100,                // ✅ 增加纵向层级间距，适应圆形节点
         roam: false,                  // 禁止缩放 & 拖拽
         expandAndCollapse: true,
-        initialTreeDepth: isAllExpanded ? 100 : 3, // 根据展开状态设置初始深度
+        initialTreeDepth: currentDepth, // 根据展开状态设置初始深度
         symbol: 'circle',             // ✅ 重要修改：使用圆形节点
         symbolSize: val => val,
         label: {
@@ -1276,7 +1418,7 @@ function bindChartEvents() {
       // 点击根节点且当前折叠状态，展开第一层
       expandAllNodes();
     } else if (nodeData) {
-      // 其他节点显示信息面板
+      // 显示信息面板
       updateInfoPanel(nodeData);
     }
   });
@@ -1294,6 +1436,10 @@ function bindChartEvents() {
 // 初始化树状图
 // ===============================
 function initChart(treeData) {
+  // 预处理组织架构数据
+  preprocessedOrgData = JSON.parse(JSON.stringify(treeData));
+  preprocessTree(preprocessedOrgData);
+  
   // 设置默认视图（组织架构）
   switchToOrgView();
 }
